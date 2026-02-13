@@ -1,0 +1,30 @@
+
+-- Step 1: Create Database and Schema
+CREATE DATABASE IF NOT EXISTS fraud_detection_db;
+USE DATABASE fraud_detection_db;
+CREATE SCHEMA IF NOT EXISTS hackathon;
+USE SCHEMA hackathon;
+
+
+CREATE OR REPLACE TABLE fraud_transactions (
+    Time FLOAT,
+    V1 FLOAT, V2 FLOAT, V3 FLOAT, V4 FLOAT, V5 FLOAT,
+    V6 FLOAT, V7 FLOAT, V8 FLOAT, V9 FLOAT, V10 FLOAT,
+    V11 FLOAT, V12 FLOAT, V13 FLOAT, V14 FLOAT, V15 FLOAT,
+    V16 FLOAT, V17 FLOAT, V18 FLOAT, V19 FLOAT, V20 FLOAT,
+    V21 FLOAT, V22 FLOAT, V23 FLOAT, V24 FLOAT, V25 FLOAT,
+    V26 FLOAT, V27 FLOAT, V28 FLOAT,
+    Amount FLOAT,
+    Class INT  -- 0 = legitimate, 1 = fraud
+);
+
+CREATE OR REPLACE FILE FORMAT csv_format
+    TYPE = 'CSV'
+    FIELD_DELIMITER = ','
+    SKIP_HEADER = 1
+    FIELD_OPTIONALLY_ENCLOSED_BY = '"';
+
+CREATE OR REPLACE STAGE fraud_stage
+    FILE_FORMAT = csv_format;
+
+sELECT * FROM fraud_transactions LIMIT 10;
